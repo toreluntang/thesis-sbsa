@@ -119,10 +119,10 @@ public class StreamingJob {
                     @Override
                     public MessageObject map(MessageObject value) throws Exception {
                         String msg = value.message;
-//                        msg = removeUrls(msg);
+                        msg = removeUrls(msg);
                         msg = removeBadSymbols(msg);
                         msg = removeStopWords(msg);
-                        msg = msg.toLowerCase(); // Is this actually wrong to do
+                        msg = msg.toLowerCase(); 
                         value.kerasPreprocessed = msg;
 
                         return value;
@@ -143,9 +143,9 @@ public class StreamingJob {
                         long start = System.nanoTime();
 
                         Annotation preprocessed = processor.preprocess(value.kerasPreprocessed);
-//                        value.serializedByteArray = PayloadSerializer.serialize(preprocessed);
-//                        value.serializedByteArray = PayloadSerializer.compress(value.serializedByteArray);
-
+                        value.serializedByteArray = PayloadSerializer.serialize(preprocessed);
+                        value.serializedByteArray = PayloadSerializer.compress(value.serializedByteArray);
+                        
                         value.kerasPreprocessed = preprocessed.toString();
 
                         long end = System.nanoTime();
